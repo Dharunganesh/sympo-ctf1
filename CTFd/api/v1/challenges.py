@@ -454,6 +454,11 @@ class Challenge(Resource):
         response["tags"] = tags
         response["hints"] = hints
 
+        solution_id = None
+        if chal.solution_id and chal.solution.state == "visible":
+            solution_id = chal.solution.id
+        response["solution_id"] = solution_id
+
         response["view"] = render_template(
             chal_class.templates["view"].lstrip("/"),
             solves=solve_count,
